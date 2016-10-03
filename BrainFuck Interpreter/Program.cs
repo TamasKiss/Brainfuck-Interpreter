@@ -15,7 +15,7 @@ namespace BrainFuck_Interpreter
             int ip = 0; // instruction pointer
             int dp = 0; //data pointer
 
-            input = optimalize(input);
+            input = Optimalize(input);
 
             while (input.Length < ip)
             {
@@ -85,9 +85,9 @@ namespace BrainFuck_Interpreter
             Console.ReadKey();
         }
 
-        private static string optimalize(string input)
+        private static string Optimalize(string input)
         {
-            string optimalized = "";
+            string optimalizedInput = "";
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -97,24 +97,24 @@ namespace BrainFuck_Interpreter
                 {
                     case '>':
                     case '<':
-                        optimalized += Simplify(input, '>', '<', i, out lastInSequence);
+                        optimalizedInput += Simplify(input, '>', '<', i, out lastInSequence);
                         i += lastInSequence - i - 1;
                         break;
                     case '+':
                     case '-':
-                        optimalized += Simplify(input, '+', '-', i, out lastInSequence);
+                        optimalizedInput += Simplify(input, '+', '-', i, out lastInSequence);
                         i += lastInSequence - i - 1;
                         break;
                     case '.':
                     case ',':
                     case '[':
                     case ']':
-                        optimalized += input[i];
+                        optimalizedInput += input[i];
                         break;
                 }
             }
 
-            return optimalized;
+            return optimalizedInput;
         }
 
         private static string Simplify(string input, char left, char right, int where, out int j)
